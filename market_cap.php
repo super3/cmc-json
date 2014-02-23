@@ -19,7 +19,6 @@ $volume = $volume->plaintext;
 $change = $change->plaintext;
 $arr = array('name'.$i => $name, 'market_cap'.$i => $cap, 'price'.$i => $price, 'supply'.$i => $supply, 'volume'.$i => $volume, 'change'.$i => $change);
 echo json_encode($arr);
-echo "/n";
 $i++;
 }
 ?>
