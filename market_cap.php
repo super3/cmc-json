@@ -2,6 +2,7 @@
 include('simple_html_dom.php');
 $html = file_get_html('http://coinmarketcap.com/');
 $i = 1;
+$list = array();
 while ($i<=100) {
 $step = $html->find('tr', $i);
 $name = $step->find('a', 0);
@@ -17,7 +18,8 @@ $supply = $supply->plaintext;
 $volume = $volume->plaintext;
 $change = $change->plaintext;
 $arr = array('name'.$i => $name, 'market_cap'.$i => $cap, 'price'.$i => $price, 'supply'.$i => $supply, 'volume'.$i => $volume, 'change'.$i => $change);
-echo json_encode($arr);
+array_push($list, $arr);
 $i++;
 }
+echo json_encode($list);
 ?>
