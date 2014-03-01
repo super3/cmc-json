@@ -17,7 +17,7 @@ $price = $price->plaintext;
 $supply = $supply->plaintext;
 $volume = $volume->plaintext;
 $change = $change->plaintext;
-$arr = array('name'.$i => $name, 'market_cap'.$i => $cap, 'price'.$i => $price, 'supply'.$i => $supply, 'volume'.$i => $volume, 'change'.$i => $change);
+$arr = array('name' => $name, 'market_cap' => $cap, 'price' => $price, 'supply' => $supply, 'volume' => $volume, 'change' => $change);
 array_push($list, $arr);
 $i++;
 }
