@@ -3,6 +3,70 @@ include('simple_html_dom.php');
 class coin_market_cap_data {
     public $coin_market_cap_url = 'http://coinmarketcap.com/';
 
+    public function market_volume_data () {
+        // This is the source of our data below
+        $html = file_get_html($this->coin_market_cap_url . 'volume.html');
+
+        // This variable is where we will store all of the coins.
+        $list_of_coins = array();
+
+        // This selects only the rows that are of the form "###. Coin name (###.## %)"
+        $coin_rows = $html->find('table tbody',0)->find('tr[id]');
+
+        foreach ($coin_rows as $coin_row) {
+            $name_unparsed = $coin_row->find('h3',0)->plaintext;
+            // get the name and market volume % from this using an ugly regex
+            preg_match("/\d+\.\s*([A-Za-z0-9]+)\s*\((\d+.\d+)\s*%\)/", $name_unparsed, $matches);
+            $name = $matches[1];
+            $market_volume = $matches[2];
+
+            // skip the row that gives us the headings
+            $coin_data_row = $coin_row->next_sibling()->next_sibling();
+            
+            // we'll store this coin's sources in this data structure
+            $sources = array();
+
+            // if we find a link in that first element, keep going
+            while ($coin_data_row->first_child()->find('a',0)) {
+                // parse the source line
+                $source = array(
+                    "url" => $coin_data_row->first_child()->find('a',0)->href,
+                    "name" => $coin_data_row->first_child()->plaintext,
+                    "pair" => $coin_data_row->children(1)->plaintext,
+                    "volume_usd" => $coin_data_row->children(2)->plaintext,
+                    "price_usd" => $coin_data_row->children(3)->plaintext,
+                    "volume_change" => $coin_data_row->children(4)->plaintext
+                );
+
+                // add the source to our sources array
+                array_push($sources, $source);
+
+                // go to the next row
+                $coin_data_row = $coin_data_row->next_sibling();
+            
+                // if the row is invalid (we're at the end), then quit
+                if (!$coin_data_row) {
+                    break;
+                }
+            }
+
+            $parsed_coins = array(
+                "name" => $name,
+                "whole_market_volume" => $market_volume,
+                "sources" => $sources
+            );
+            // add this coin to our list of coins
+            array_push($list_of_coins, $parsed_coins);
+        }
+
+        $json_root = array(
+            'coins' => $list_of_coins,
+            'timestamp' => gmdate("Y-m-d H:i:s")
+        );
+
+        return $json_root;
+    }
+
     public function market_cap_data ($top = 100) {
         // This is the source of our data below
         $html = file_get_html($this->coin_market_cap_url);
@@ -58,13 +122,12 @@ class coin_market_cap_data {
 
         // DateTime object needed for timestamp
 
-        $dt = new DateTime("now", new DateTimeZone("America/New_York"));
         // TimeZones supported can be found here: http://www.php.net/manual/en/timezones.php
         
         // This represents the root JSON object
         $json_root = array(
             'coins' => $list_of_coins,
-            'timestamp' => $dt->format('Y-m-d H:i:s')
+            'timestamp' => gmdate("Y-m-d H:i:s")
         );
         
         return $json_root;

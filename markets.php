@@ -6,5 +6,5 @@ include('./market_cap.php');
 $mc = new coin_market_cap_data();
 
 // Displaying this with some pretty_print
-echo json_encode($mc->market_cap_data(5), JSON_PRETTY_PRINT);
+echo json_encode($mc->market_volume_data(), JSON_PRETTY_PRINT);
 ?>
