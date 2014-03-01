@@ -54,7 +54,7 @@ markets.php output:
                     "pair": "BTC\/USD",
                     "volume_usd": "21364235",
                     "price_usd": "572.11",
-                    "volume_change": "100.00"
+                    "volume_percent": "100.00"
                 }
             ]
         },

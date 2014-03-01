@@ -37,7 +37,7 @@ class coin_market_cap_data {
                     "pair" => $coin_data_row->children(1)->plaintext,
                     "volume_usd" => $coin_data_row->children(2)->plaintext,
                     "price_usd" => $coin_data_row->children(3)->plaintext,
-                    "volume_change" => $coin_data_row->children(4)->plaintext
+                    "volume_percent" => $coin_data_row->children(4)->plaintext
                 );
 
                 // and clean up the source elements
