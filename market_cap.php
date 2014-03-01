@@ -43,7 +43,7 @@ class coin_market_cap_data {
                 // and clean up the source elements
                 foreach ($source as $key => $elem) {
                     if ($key != 'name' && $key != 'url' && $key != 'pair') {
-                        $source[$key] = preg_replace($this->number_cleanup_regex, "", $elem);
+                        $source[$key] = (float) preg_replace($this->number_cleanup_regex, "", $elem);
                     }
                 }
 
@@ -121,7 +121,7 @@ class coin_market_cap_data {
                 // We don't want to wipe out the name
                 if ($key != 'name' && $key != 'shorthand_name') {
                     // Remove everything that isn't a number or period
-                    $arr[$key] = preg_replace($this->number_cleanup_regex, "", $value);
+                    $arr[$key] = (float) preg_replace($this->number_cleanup_regex, "", $value);
                 }
             }
 
