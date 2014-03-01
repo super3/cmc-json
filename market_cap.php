@@ -2,6 +2,7 @@
 include('simple_html_dom.php');
 class coin_market_cap_data {
     public $coin_market_cap_url = 'http://coinmarketcap.com/';
+    public $number_cleanup_regex = "/[^-e\.0-9]+/";
 
     public function market_volume_data () {
         // This is the source of our data below
@@ -16,7 +17,8 @@ class coin_market_cap_data {
         foreach ($coin_rows as $coin_row) {
             $name_unparsed = $coin_row->find('h3',0)->plaintext;
             // get the name and market volume % from this using an ugly regex
-            preg_match("/\d+\.\s*([A-Za-z0-9]+)\s*\((\d+.\d+)\s*%\)/", $name_unparsed, $matches);
+            preg_match("/\d+\.\s*([\sA-Za-z0-9]+)\s+\((\d+.\d+)\s*%\)/", $name_unparsed, $matches);
+            
             $name = $matches[1];
             $market_volume = $matches[2];
 
@@ -37,6 +39,13 @@ class coin_market_cap_data {
                     "price_usd" => $coin_data_row->children(3)->plaintext,
                     "volume_change" => $coin_data_row->children(4)->plaintext
                 );
+
+                // and clean up the source elements
+                foreach ($source as $key => $elem) {
+                    if ($key != 'name' && $key != 'url' && $key != 'pair') {
+                        $source[$key] = preg_replace($this->number_cleanup_regex, "", $elem);
+                    }
+                }
 
                 // add the source to our sources array
                 array_push($sources, $source);
@@ -60,7 +69,7 @@ class coin_market_cap_data {
         }
 
         $json_root = array(
-            'coins' => $list_of_coins,
+            'coins_volume' => $list_of_coins,
             'timestamp' => gmdate("Y-m-d H:i:s")
         );
 
@@ -112,7 +121,7 @@ class coin_market_cap_data {
                 // We don't want to wipe out the name
                 if ($key != 'name' && $key != 'shorthand_name') {
                     // Remove everything that isn't a number or period
-                    $arr[$key] = preg_replace("/[^-e\.0-9]+/", "", $value);
+                    $arr[$key] = preg_replace($this->number_cleanup_regex, "", $value);
                 }
             }
 
