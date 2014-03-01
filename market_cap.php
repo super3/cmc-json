@@ -30,8 +30,11 @@ for ($i = 1; $i <= 100; $i++) {
         'change_24_hours' => $change
     );
 
+    // We are cleaning the data, we only want decimal numbers
     foreach ($arr as $key => $value) {
+        // We don't want to wipe out the name
         if ($key != 'name') {
+            // Remove everything that isn't a number or period
             $arr[$key] = preg_replace("/[^\.0-9]+/", "", $value);
         }
     }
