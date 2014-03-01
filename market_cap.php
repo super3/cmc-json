@@ -23,13 +23,19 @@ for ($i = 1; $i <= 100; $i++) {
     // We build an array data structure using the parsed table row
     $arr = array(
         'name' => $name, 
-        'market_cap' => $cap, 
-        'price' => $price, 
-        'supply' => $supply, 
-        'volume' => $volume, 
-        'change' => $change
+        'market_cap_usd' => $cap, 
+        'price_usd' => $price, 
+        'supply_btc' => $supply, 
+        'volume_usd' => $volume, 
+        'change_24_hours' => $change
     );
-    
+
+    foreach ($arr as $key => $value) {
+        if ($key != 'name') {
+            $arr[$key] = preg_replace("/[^\.0-9]+/", "", $value);
+        }
+    }
+
     // We push this data structure onto a list of coins array
     array_push($list_of_coins, $arr);
 }
