@@ -35,7 +35,7 @@ for ($i = 1; $i <= 100; $i++) {
         // We don't want to wipe out the name
         if ($key != 'name') {
             // Remove everything that isn't a number or period
-            $arr[$key] = preg_replace("/[^\.0-9]+/", "", $value);
+            $arr[$key] = preg_replace("/[^-\.0-9]+/", "", $value);
         }
     }
 
