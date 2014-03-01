@@ -3,7 +3,7 @@ cmc-json
 
 Coverts Coinmarketcap.com data into JSON data.
 
-This script scapes the front page of http://coinmarketcap.com and returns the data in JSON format, e.g.
+This script scrapes the HTML on the front page of http://coinmarketcap.com and returns the live data in JSON format, e.g.
 
 ```
 [
