@@ -3,14 +3,14 @@ include('simple_html_dom.php');
 class coin_market_cap_data {
     public $coin_market_cap_url = 'http://coinmarketcap.com/';
 
-    public function market_cap_data () {
+    public function market_cap_data ($top = 100) {
         // This is the source of our data below
         $html = file_get_html($this->coin_market_cap_url);
 
         // This variable is where we will store all of the coins.
         $list_of_coins = array();
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= $top; $i++) {
             // We are parsing the table rows from 1 to 100
             // Here we get the $i'th "tr" element in the table
             $step = $html->find('tr', $i);
@@ -55,8 +55,19 @@ class coin_market_cap_data {
             // We push this data structure onto a list of coins array
             array_push($list_of_coins, $arr);
         }
+
+        // DateTime object needed for timestamp
+
+        $dt = new DateTime("now", new DateTimeZone("America/New_York"));
+        // TimeZones supported can be found here: http://www.php.net/manual/en/timezones.php
         
-        return $list_of_coins;
+        // This represents the root JSON object
+        $json_root = array(
+            'coins' => $list_of_coins,
+            'timestamp' => $dt->format('Y-m-d H:i:s')
+        );
+        
+        return $json_root;
     }
 }
 
