@@ -6,7 +6,8 @@ Then, the script converts Coinmarketcap.com into JSON data.
 
 Possible usage: 
 ```
-$ php market_cap.php > coins.json
+$ php coins.php > coins.json
+$ php markets.php > markets.json
 ```
 
 ```json
