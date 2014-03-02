@@ -1,5 +1,6 @@
 <?php
 include('simple_html_dom.php');
+
 class coin_market_cap_data {
     public $coin_market_cap_url = 'http://coinmarketcap.com/';
     public $number_cleanup_regex = "/[^-e\.0-9]+/";
@@ -43,9 +44,11 @@ class coin_market_cap_data {
                 // and clean up the source elements
                 foreach ($source as $key => $elem) {
                     if ($key != 'name' && $key != 'url' && $key != 'pair') {
-                        $source[$key] = (float) preg_replace($this->number_cleanup_regex, "", $elem);
+                        $source[$key] = (double) preg_replace($this->number_cleanup_regex, "", $elem);
                     }
                 }
+    
+                $source['price_usd_expanded'] = number_format($source['price_usd'], 9, '.', '');
 
                 // add the source to our sources array
                 array_push($sources, $source);
@@ -106,13 +109,13 @@ class coin_market_cap_data {
 
             // We build an array data structure using the parsed table row
             $arr = array(
-                'name' => $name, 
+                'name' => $name,
                 'shorthand_name' => $shorthand_matches[1],
                 'mineable' => $mineable,
-                'market_cap_usd' => $cap, 
-                'price_usd' => $price, 
-                'supply_btc' => $supply, 
-                'volume_usd' => $volume, 
+                'market_cap_usd' => $cap,
+                'price_usd' => $price,
+                'supply_btc' => $supply,
+                'volume_usd' => $volume,
                 'change_24_hours' => $change,
             );
 
@@ -121,9 +124,11 @@ class coin_market_cap_data {
                 // We don't want to wipe out the name
                 if ($key != 'name' && $key != 'shorthand_name') {
                     // Remove everything that isn't a number or period
-                    $arr[$key] = (float) preg_replace($this->number_cleanup_regex, "", $value);
+                    $arr[$key] = (double) preg_replace($this->number_cleanup_regex, "", $value);
                 }
             }
+            
+            $arr['price_usd_expanded'] = number_format($arr['price_usd'], 9, '.', '');
 
             // We push this data structure onto a list of coins array
             array_push($list_of_coins, $arr);
