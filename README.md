@@ -5,28 +5,63 @@ This is a PHP script that uses simple HTML DOM parsing to get the top 100 coins 
 Then, the script converts Coinmarketcap.com into JSON data.
 
 Possible usage: 
-```
-$ php market_cap.php > coins.json
+```shell
+$ php coins.php > coins.json
+$ php markets.php > markets.json
 ```
 
+coins.php output:
 ```json
-[
-    {
-        "name": "Bitcoin",
-        "market_cap_usd": "7103813615",
-        "price_usd": "570.03",
-        "supply_btc": "12462175",
-        "volume_usd": "25466113",
-        "change_24_hours": "0.18"
-    },
-    {
-        "name": "Ripple",
-        "market_cap_usd": "1372515592",
-        "price_usd": "0.014",
-        "supply_btc": "99999997890",
-        "volume_usd": "84338",
-        "change_24_hours": "2.02"
-    }
-    // and so on . . .
-]
+{
+    "coins": [
+        {
+            "name": "Bitcoin",
+            "shorthand_name": "BTC",
+            "mineable": 1,
+            "market_cap_usd": 7056465670,
+            "price_usd": 566.2,
+            "supply_btc": 12462850,
+            "volume_usd": 17226499,
+            "change_24_hours": 5.02,
+            "price_usd_expanded": "566.200000000"
+        },
+        {
+            "name": "Ripple",
+            "shorthand_name": "XRP",
+            "mineable": 0,
+            "market_cap_usd": 1367341981,
+            "price_usd": 0.014,
+            "supply_btc": 99999997890,
+            "volume_usd": 105367,
+            "change_24_hours": 1.41,
+            "price_usd_expanded": "0.014000000"
+        },
+        // . . . and so on etc
+    ],
+    "timestamp": "2014-03-01 22:34:30"
+}
+```
+
+markets.php output:
+```json
+{
+    "coins_volume": [
+        {
+            "name": "Bitcoin",
+            "whole_market_volume": "63.48",
+            "sources": [
+                {
+                    "url": "https:\/\/bitcoinaverage.com\/#USD",
+                    "name": "BitcoinAverage",
+                    "pair": "BTC\/USD",
+                    "volume_usd": 17226499,
+                    "price_usd": 566.2,
+                    "volume_percent": 100,
+                    "price_usd_expanded": "566.200000000"
+                }
+            ]
+        },
+    // . . . and so on etc
+    "timestamp": "2014-03-01 22:31:36"
+}
 ```
