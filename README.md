@@ -1,7 +1,7 @@
 cmc-json
 ========
 
-This is a PHP script that uses simple HTML DOM parsing to get the top 100 coins from [CoinMarketCap](http://coinmarketcap.com/). Then, the script converts that into JSON data. IF you get a zend heap error see [this link](https://stackoverflow.com/questions/2247977/what-does-zend-mm-heap-corrupted-mean).
+This is a PHP script that uses simple HTML DOM parsing to get the top 100 coins from [CoinMarketCap](http://coinmarketcap.com/). Then, the script converts that into JSON data. If you get a zend heap error see [this link](https://stackoverflow.com/questions/2247977/what-does-zend-mm-heap-corrupted-mean).
 
 Possible usage: 
 ```shell
