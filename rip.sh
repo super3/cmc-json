@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/php
 
 # Get Date
 NOW=$(date +%F--%H:%M:%S)
