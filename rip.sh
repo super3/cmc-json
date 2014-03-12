@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Fix Memory Issues
+export USE_ZEND_ALLOC=0
 # Get Date
 NOW=$(date +%F--%H:%M:%S)
 # mik0r note: change the paths below if locations change.
