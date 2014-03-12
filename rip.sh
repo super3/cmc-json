@@ -1,12 +1,24 @@
-#!/usr/local/bin/php
+#!/bin/bash
 
 # Get Date
 NOW=$(date +%F--%H:%M:%S)
+# mik0r note: change the paths below if locations change.
+CARC="/var/www/coins-archive/coins-${NOW}.json" 
+MARC="/var/www/markets-archive/coins-${NOW}.json"
+CJSO="/var/www/coins.json"
+MJSO="/var/www/markets.json"
+
+test ! -f "${CARC}" && touch "${CARC}"
+test ! -f "${MARC}" && touch "${MARC}"
+test ! -f "${CJSO}" && touch "${CJSO}"
+test ! -f "${MJSO}" && touch "${MJSO}"
 
 # Cache Data
-php coins.php > /var/www/coins.json
-php markets.php > /var/www/markets.json
+# mik0r note: change path to php binary & both .php files to suit your env
+/usr/bin/php /var/scripts/coins.php > "${CJSO}"
+/usr/bin/php /var/scripts/markets.php > "${MJSO}"
 
 # Archive Data
-php coins.php > /var/www/coins-archive/coins-$NOW.json
-php markets.php > /var/www/markets-archive/coins-$NOW.json
+# mik0r note: change path to php binary & both .php files to suit your env
+/usr/bin/php /var/scripts/coins.php > "${CARC}"
+/usr/bin/php /var/scripts/markets.php > "${MARC}"  
