@@ -64,3 +64,11 @@ markets.php output:
     "timestamp": "2014-03-01 22:31:36"
 }
 ```
+
+Bash Script:
+```bash
+SHELL=/bin/sh
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+MAILTO=""
+*/15 * * * *    cd /root/cmc-json/ && sh /root/cmc-json/rip.sh > /root/error.txt 2>&1
+```
