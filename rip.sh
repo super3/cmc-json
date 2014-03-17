@@ -22,12 +22,14 @@ test ! -f "${MJSO}" && touch "${MJSO}"
 /usr/bin/php /root/cmc-json/coins.php > "${CJSO}"
 /usr/bin/php /root/cmc-json/markets.php > "${MJSO}"
 
+# create directory
+mkdir -p /var/www/coins-archive/${SUBDIR}
+
 # Archive Data
 # mik0r note: change path to php binary & both .php files to suit your env
 /usr/bin/php /root/cmc-json/coins.php > "${CARC}"
 /usr/bin/php /root/cmc-json/markets.php > "${MARC}"  
 
 #grab a copy of coinmarketcap and store it in the subdir
-mkdir -p /var/www/coins-archive/${SUBDIR}
 wget -O - http://coinmarketcap.com/all.html > /var/www/coins-archive/${SUBDIR}/${NOW}.html
 wget -O - http://coinmarketcap.com/volumehtml > /var/www/coins-archive/${SUBDIR}/${NOW}_volume.html
