@@ -7,8 +7,8 @@ NOW=$(date +%F--%H:%M:%S)
 #subdir that includes year and month only
 SUBDIR=$(date +%Y-%m)
 # mik0r note: change the paths below if locations change.
-CARC="/var/www/coins-archive/coins-${NOW}.json" 
-MARC="/var/www/markets-archive/coins-${NOW}.json"
+CARC="/var/www/coins-archive/${SUBDIR}/coins-${NOW}.json" 
+MARC="/var/www/markets-archive/${SUBDIR}/coins-${NOW}.json"
 CJSO="/var/www/coins.json"
 MJSO="/var/www/markets.json"
 
