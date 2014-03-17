@@ -24,6 +24,7 @@ test ! -f "${MJSO}" && touch "${MJSO}"
 
 # create directory
 mkdir -p /var/www/coins-archive/${SUBDIR}
+mkdir -p /var/www/markets-archive/${SUBDIR}
 
 # Archive Data
 # mik0r note: change path to php binary & both .php files to suit your env
@@ -32,4 +33,4 @@ mkdir -p /var/www/coins-archive/${SUBDIR}
 
 #grab a copy of coinmarketcap and store it in the subdir
 wget -O - http://coinmarketcap.com/all.html > /var/www/coins-archive/${SUBDIR}/${NOW}.html
-wget -O - http://coinmarketcap.com/volumehtml > /var/www/coins-archive/${SUBDIR}/${NOW}_volume.html
+wget -O - http://coinmarketcap.com/volume.html > /var/www/markets-archive/${SUBDIR}/${NOW}_volume.html
