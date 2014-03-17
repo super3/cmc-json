@@ -26,7 +26,6 @@ test ! -f "${MJSO}" && touch "${MJSO}"
 /usr/bin/php /root/cmc-json/coins.php > "${CJSO}"
 /usr/bin/php /root/cmc-json/markets.php > "${MJSO}"
 
-
 # Archive Data
 # mik0r note: change path to php binary & both .php files to suit your env
 /usr/bin/php /root/cmc-json/coins.php > "${CARC}"
