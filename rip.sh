@@ -7,14 +7,14 @@ NOW=$(date +%F--%H:%M:%S)
 #subdir that includes year and month only
 SUBDIR=$(date +%Y-%m)
 # mik0r note: change the paths below if locations change.
-CARC="/var/www/coins-archive/${SUBDIR}/coins-${NOW}.json" 
-MARC="/var/www/markets-archive/${SUBDIR}/markets-${NOW}.json"
-CJSO="/var/www/coins.json"
-MJSO="/var/www/markets.json"
+CARC="/var/www/cmc/coins-archive/${SUBDIR}/coins-${NOW}.json" 
+MARC="/var/www/cmc/markets-archive/${SUBDIR}/markets-${NOW}.json"
+CJSO="/var/www/cmc/coins.json"
+MJSO="/var/www/cmc/markets.json"
 
 # create directory
-mkdir -p /var/www/coins-archive/${SUBDIR}
-mkdir -p /var/www/markets-archive/${SUBDIR}
+mkdir -p /var/www/cmc/coins-archive/${SUBDIR}
+mkdir -p /var/www/cmc/markets-archive/${SUBDIR}
 
 test ! -f "${CARC}" && touch "${CARC}"
 test ! -f "${MARC}" && touch "${MARC}"
@@ -32,5 +32,5 @@ test ! -f "${MJSO}" && touch "${MJSO}"
 /usr/bin/php /root/cmc-json/markets.php > "${MARC}"  
 
 #grab a copy of coinmarketcap and store it in the subdir
-wget -O - http://coinmarketcap.com/ > /var/www/coins-archive/${SUBDIR}/coins-${NOW}.html
-wget -O - http://coinmarketcap.com/volume.html > /var/www/markets-archive/${SUBDIR}/markets-${NOW}.html
+wget -O - http://coinmarketcap.com/ > /var/www/cmc/coins-archive/${SUBDIR}/coins-${NOW}.html
+wget -O - http://coinmarketcap.com/volume.html > /var/www/cmc/markets-archive/${SUBDIR}/markets-${NOW}.html
